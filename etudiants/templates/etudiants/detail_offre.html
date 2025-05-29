@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}Détail de l'offre{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto my-8">
+    <!-- Carte principale -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+        <!-- En-tête avec dégradé -->
+        <div class="bg-gradient-to-r from-indigo-600 to-blue-500 px-6 py-4">
+            <h2 class="text-3xl font-bold text-white">{{ offre.titre }}</h2>
+            <div class="flex items-center text-indigo-100 mt-2">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+                </svg>
+                <span>Publiée le {{ offre.date_publication|date:"d/m/Y" }}</span>
+            </div>
+        </div>
+        
+        <!-- Corps de l'offre -->
+        <div class="p-6">
+            <!-- Description -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Description du poste</h3>
+                <div class="text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg">
+                    {{ offre.description|linebreaks }}
+                </div>
+            </div>
+            
+            <!-- Informations sur l'entreprise -->
+            <div class="bg-indigo-50 rounded-lg p-5 mb-6">
+                <h3 class="flex items-center text-xl font-semibold text-indigo-700 mb-4">
+                    <svg class="w-6 h-6 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                        <path d="M11 4a1 1 0 10-2 0v1a1 1 0 102 0V4zM11 7a1 1 0 10-2 0v1a1 1 0 102 0V7zM11 10a1 1 0 10-2 0v1a1 1 0 102 0v-1z"></path>
+                    </svg>
+                    Informations sur l'entreprise
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        <div class="bg-white p-3 rounded-lg shadow-sm mr-3">
+                            <svg class="w-5 h-5 text-indigo-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-gray-500 text-sm">Nom</span>
+                            <p class="font-medium text-gray-800">{{ entreprise.nom_entreprise }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-white p-3 rounded-lg shadow-sm mr-3">
+                            <svg class="w-5 h-5 text-indigo-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h6v4H7V5zm8 8v2H5v-2h10zm0-3v2H5v-2h10z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-gray-500 text-sm">Secteur</span>
+                            <p class="font-medium text-gray-800">{{ entreprise.secteur_activite }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-white p-3 rounded-lg shadow-sm mr-3">
+                            <svg class="w-5 h-5 text-indigo-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-gray-500 text-sm">Email</span>
+                            <p class="font-medium text-gray-800">{{ entreprise.user.email }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-white p-3 rounded-lg shadow-sm mr-3">
+                            <svg class="w-5 h-5 text-indigo-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-gray-500 text-sm">Site Web</span>
+                            <p class="font-medium text-gray-800">
+                                {% if entreprise.site_web %}
+                                    <a href="{{ entreprise.site_web }}" class="text-blue-600 hover:text-blue-800 hover:underline" target="_blank">{{ entreprise.site_web }}</a>
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bouton pour postuler -->
+            <div class="flex justify-center mt-8">
+                <a href="{% url 'postuler_offre' offre.id %}" class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                    Postuler à cette offre
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bouton retour -->
+    <div class="text-center mt-6">
+        <a href="{% url 'voir_offres' %}" class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+            </svg>
+            Retour aux offres
+        </a>
+    </div>
+</div>
+{% endblock %}

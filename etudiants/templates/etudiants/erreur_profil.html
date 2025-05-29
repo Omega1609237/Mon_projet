@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Erreur Profil Étudiant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-red-50 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white p-6 rounded-lg shadow-md text-center w-full max-w-lg">
+        <h2 class="text-xl font-bold text-red-600 mb-4">Erreur de profil</h2>
+        <p class="text-gray-700 mb-6">
+            {{ message }}
+        </p>
+        <a href="{% url 'connexion_etudiant' %}"
+           class="inline-block px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+            Retour à la connexion
+        </a>
+    </div>
+
+</body>
+</html>

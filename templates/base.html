@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StageLink - Plateforme de stages{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% if messages %}
+  <div class="container mx-auto mb-4">
+    {% for message in messages %}
+      <div class="p-4 mb-4 rounded-lg shadow
+        {% if message.tags == 'success' %}
+          bg-green-100 text-green-800 border border-green-300
+        {% elif message.tags == 'error' %}
+          bg-red-100 text-red-800 border border-red-300
+        {% elif message.tags == 'warning' %}
+          bg-yellow-100 text-yellow-800 border border-yellow-300
+        {% else %}
+          bg-gray-100 text-gray-800 border border-gray-300
+        {% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    {% load widget_tweaks %}
+
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'dashboard_global' %}" class="text-2xl font-bold text-white hover:text-yellow-300 transition">
+                StageLink
+            </a>
+            <div class="flex items-center space-x-4">
+                {% if user.is_authenticated %}
+                    <span class="text-white">Bienvenue, <strong>{{ user.username }}</strong></span>
+                    <form method="post" action="{% url 'logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg text-sm transition">
+                            Déconnexion
+                        </button>
+                    </form>                    
+                {% else %}
+                    <!-- On pourra ici afficher les liens de connexion/inscription si besoin -->
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="flex-grow container mx-auto p-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer (optionnel) -->
+    <footer class="bg-gray-800 text-gray-400 text-center p-4 text-sm">
+        © {{ now|date:"Y" }} StageLink - Tous droits réservés.
+    </footer>
+
+</body>
+</html>

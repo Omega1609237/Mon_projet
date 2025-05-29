@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Postuler à l'offre{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-8 mb-12">
+    <!-- Carte principale -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- En-tête -->
+        <div class="bg-gradient-to-r from-indigo-600 to-indigo-400 px-6 py-6 sm:px-8">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <div class="bg-white rounded-full p-2 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="ml-4">
+                    <h1 class="text-xl font-bold text-white sm:text-2xl">Candidature</h1>
+                    <p class="text-indigo-100 text-sm sm:text-base">Postuler à cette offre de stage</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Détails de l'offre -->
+        <div class="bg-indigo-50 border-b border-indigo-100 px-6 py-4 sm:px-8">
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="text-lg font-medium text-indigo-800">{{ offre.titre }}</span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {{ offre.lieu }}
+                </span>
+                {% if offre.date_debut %}
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Début: {{ offre.date_debut|date:"d M Y" }}
+                </span>
+                {% endif %}
+                {% if offre.entreprise %}
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    {{ offre.entreprise }}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="p-6 sm:p-8">
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Lettre de motivation -->
+                <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <label for="lettre_motivation" class="block text-gray-700 font-medium mb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Lettre de motivation :
+                    </label>
+                    <div class="relative">
+                        {{ form.lettre_motivation|add_class:"border border-gray-300 rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-h-[180px] resize-y text-gray-700"|attr:"placeholder:Expliquez pourquoi vous êtes intéressé(e) par cette offre et quelles compétences vous apportez..." }}
+                        <div class="absolute bottom-3 right-3 text-xs text-gray-400">
+                            <span id="char-count">0</span> caractères
+                        </div>
+                    </div>
+                    <div class="mt-2 text-sm text-gray-500">
+                        Présentez-vous et expliquez votre motivation pour ce stage.
+                    </div>
+                </div>
+                
+                <!-- CV -->
+                <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <label for="cv" class="block text-gray-700 font-medium mb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Curriculum Vitae (CV) :
+                    </label>
+                    <div class="mt-1">
+                        <div class="relative">
+                            {{ form.cv|add_class:"hidden"|attr:"id:cv_file" }}
+                            <label for="cv_file" class="cursor-pointer flex items-center justify-center w-full px-4 py-3 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                <span id="cv_filename">Choisir un fichier PDF</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-sm text-gray-500">
+                        Formats acceptés : PDF, DOC, DOCX. Taille maximale : 5 Mo.
+                    </div>
+                </div>
+                
+                <!-- Boutons -->
+                <div class="flex flex-col-reverse sm:flex-row justify-between gap-4 pt-4">
+                    <a href="{% url 'voir_offres' %}" class="inline-flex items-center justify-center bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors border border-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Retour aux offres
+                    </a>
+                    <button type="submit" class="inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg transition-colors shadow-md hover:shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                        </svg>
+                        Envoyer ma candidature
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Afficher le nom du fichier sélectionné
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('cv_file');
+        const fileLabel = document.getElementById('cv_filename');
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                fileLabel.textContent = this.files[0].name;
+            } else {
+                fileLabel.textContent = 'Choisir un fichier PDF';
+            }
+        });
+        
+        // Compteur de caractères pour la lettre de motivation
+        const textarea = document.getElementById('{{ form.lettre_motivation.id_for_label }}');
+        const charCount = document.getElementById('char-count');
+        
+        function updateCharCount() {
+            const count = textarea.value.length;
+            charCount.textContent = count;
+        }
+        
+        textarea.addEventListener('input', updateCharCount);
+        updateCharCount(); // Initial count
+    });
+</script>
+{% endblock %}

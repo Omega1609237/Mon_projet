@@ -1,0 +1,15 @@
+from django.apps import AppConfig
+
+
+class EntreprisesConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'entreprises'
+
+from django.apps import AppConfig
+
+class EntreprisesConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'entreprises'
+
+    def ready(self):
+        import entreprises.signals

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow border border-red-200">
+  <h2 class="text-xl font-bold text-red-600 mb-4">Supprimer l'offre</h2>
+  <p class="mb-4 text-gray-700">Êtes-vous sûr de vouloir supprimer l’offre <strong>{{ offre.titre }}</strong> ? Cette action est irréversible.</p>
+  
+  <form method="post" class="flex space-x-4">
+    {% csrf_token %}
+    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Oui, supprimer</button>
+    <a href="{% url 'mes_offres' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">Annuler</a>
+  </form>
+</div>
+{% endblock %}

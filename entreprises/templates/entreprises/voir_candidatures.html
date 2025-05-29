@@ -1,0 +1,455 @@
+{% extends 'base.html' %}
+{% block title %}Candidatures reçues{% endblock %}
+{% block content %}
+<style>
+    :root {
+        --primary: #4f46e5;
+        --primary-light: #818cf8;
+        --primary-dark: #3730a3;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --text-primary: #111827;
+        --text-secondary: #4b5563;
+        --text-tertiary: #6b7280;
+        --bg-main: #f9fafb;
+        --bg-card: #ffffff;
+        --border: #e5e7eb;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .applications-container {
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--primary-light);
+    }
+
+    .page-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .page-title svg {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .applications-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .application-card {
+        background-color: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid var(--border);
+        position: relative;
+    }
+
+    .application-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-light);
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 1.25rem;
+        position: relative;
+    }
+
+    .job-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-badge {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .applicant-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .applicant-avatar {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 1.25rem;
+        margin-right: 1rem;
+    }
+
+    .applicant-details {
+        flex: 1;
+    }
+
+    .applicant-name {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1.125rem;
+    }
+
+    .application-date {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .letter-container {
+        background-color: var(--bg-main);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+        border-left: 3px solid var(--primary);
+    }
+
+    .letter-label {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .letter-content {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        max-height: 120px;
+        overflow-y: auto;
+        position: relative;
+        padding-right: 0.5rem;
+    }
+
+    .letter-content::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .letter-content::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .letter-content::-webkit-scrollbar-thumb {
+        background: var(--primary-light);
+        border-radius: 10px;
+    }
+
+    .card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.625rem 1.25rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        gap: 0.5rem;
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+    }
+
+    .btn-success {
+        background-color: var(--accent);
+        color: white;
+    }
+
+    .btn-success:hover {
+        background-color: var(--accent-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+        background-color: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .profile-link {
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: var(--bg-card);
+        border-radius: 8px;
+        font-size: 0.875rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--primary);
+        border: 1px solid var(--border);
+        transition: all 0.2s ease;
+    }
+
+    .profile-link:hover {
+        background-color: var(--primary-light);
+        color: white;
+    }
+
+    .profile-missing {
+        color: var(--text-tertiary);
+        font-style: italic;
+        font-size: 0.875rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background-color: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+    }
+
+    .empty-icon {
+        width: 6rem;
+        height: 6rem;
+        margin: 0 auto 1.5rem;
+        color: var(--text-tertiary);
+    }
+
+    .empty-text {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background-color: var(--accent);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 500;
+        text-decoration: none;
+        margin-top: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background-color: var(--accent-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Animation styles */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeInUp 0.4s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    @media (max-width: 768px) {
+        .applications-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+
+<div class="applications-container">
+    <div class="page-header animate-fade-in">
+        <h1 class="page-title">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Candidatures reçues
+        </h1>
+    </div>
+
+    {% if candidatures %}
+        <div class="applications-grid">
+            {% for candidature in candidatures %}
+                <div class="application-card animate-fade-in delay-{{ forloop.counter|divisibleby:3|yesno:'3,1,2' }}">
+                    <div class="card-header">
+                        <h2 class="job-title">{{ candidature.offre.titre }}</h2>
+                        <span class="card-badge">Nouvelle</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="applicant-info">
+                            <div class="applicant-avatar">
+                                {{ candidature.etudiant.user.username|slice:":1"|upper }}
+                            </div>
+                            <div class="applicant-details">
+                                <div class="applicant-name">{{ candidature.etudiant.user.username }}</div>
+                                <div class="application-date">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    {{ candidature.date_candidature|date:"d M Y à H:i" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="letter-container">
+                            <div class="letter-label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                Lettre de motivation
+                            </div>
+                            <div class="letter-content">{{ candidature.lettre_motivation }}</div>
+                        </div>
+
+                        <div class="card-actions">
+                            <a href="{{ candidature.cv.url }}" target="_blank" class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                </svg>
+                                Télécharger le CV
+                            </a>
+                            <a href="{% url 'repondre_etudiant' candidature.id %}" class="btn btn-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                                </svg>
+                                Répondre
+                            </a>
+                        </div>
+                    </div>
+
+                    {% if candidature.etudiant.etudiant_profile %}
+                        <a href="{% url 'voir_profil_etudiant' candidature.etudiant.etudiant_profile.id %}" class="profile-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            Voir le profil complet
+                        </a>
+                    {% else %}
+                        <span class="profile-missing">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            Profil non complété
+                        </span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state animate-fade-in">
+            <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+            <p class="empty-text">Aucune candidature reçue pour le moment.</p>
+        </div>
+    {% endif %}
+
+    <div class="text-center animate-fade-in delay-3">
+        <a href="{% url 'tableau_de_bord_entreprise' %}" class="back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Retour au tableau de bord
+        </a>
+    </div>
+</div>
+
+<script>
+    // Add interactive features
+    document.addEventListener('DOMContentLoaded', function() {
+        // Expand letter on click
+        const letterContainers = document.querySelectorAll('.letter-container');
+        letterContainers.forEach(container => {
+            const content = container.querySelector('.letter-content');
+            container.addEventListener('click', function() {
+                if (content.style.maxHeight === 'none') {
+                    content.style.maxHeight = '120px';
+                } else {
+                    content.style.maxHeight = 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

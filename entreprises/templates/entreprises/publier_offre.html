@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publier une offre de stage</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --primary-bg: rgba(79, 70, 229, 0.05);
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --secondary-light: rgba(16, 185, 129, 0.1);
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --text: #334155;
+            --text-light: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --border-focus: #cbd5e1;
+            --error: #ef4444;
+            --success: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f4ff 0%, #ebf1ff 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: var(--card);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 6px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-header {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            padding: 2rem;
+            color: white;
+            position: relative;
+        }
+        
+        .form-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .card-icon {
+            position: absolute;
+            top: -25px;
+            right: 30px;
+            background-color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon svg {
+            width: 30px;
+            height: 30px;
+            color: var(--primary);
+        }
+        
+        .form-body {
+            padding: 2rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .form-row-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background-color: var(--card);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+            background-color: white;
+        }
+        
+        input:hover, textarea:hover {
+            border-color: var(--border-focus);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group.required label::after {
+            content: '*';
+            color: var(--error);
+            margin-left: 4px;
+        }
+        
+        .input-icon {
+            position: absolute;
+            right: 12px;
+            top: 42px;
+            color: var(--text-light);
+            pointer-events: none;
+        }
+        
+        .input-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        @media (min-width: 640px) {
+            .btn-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--background);
+            border-color: var(--text-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Form feedback elements */
+        .form-tip {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+        
+        .field-highlight {
+            background-color: var(--primary-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Animation styles */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+        
+        /* Floating label animation */
+        .float-effect label {
+            position: absolute;
+            top: 0.75rem;
+            left: 1rem;
+            background: white;
+            padding: 0 0.5rem;
+            font-size: 1rem;
+            color: var(--text-light);
+            pointer-events: none;
+            transition: 0.2s ease all;
+        }
+        
+        .float-effect input:focus ~ label,
+        .float-effect input:not(:placeholder-shown) ~ label,
+        .float-effect textarea:focus ~ label,
+        .float-effect textarea:not(:placeholder-shown) ~ label {
+            top: -0.5rem;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="container fade-in">
+        <div class="form-header">
+            <div class="card-icon fade-in delay-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <h1 class="fade-in delay-1">Publier une offre de stage</h1>
+            <p class="fade-in delay-2">Attirez les meilleurs talents en décrivant précisément votre offre</p>
+        </div>
+        
+        <div class="form-body">
+            <div class="field-highlight fade-in delay-2">
+                <p>Les offres de stage complètes reçoivent jusqu'à 3 fois plus de candidatures. Prenez le temps de bien détailler votre offre.</p>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group required fade-in delay-3">
+                    <label for="id_titre">Titre de l'offre</label>
+                    <div class="input-wrapper">
+                        <input type="text" name="titre" id="id_titre" placeholder="Ex: Stage en développement web frontend" value="{{ form.titre.value|default_if_none:'' }}" required>
+                        <span class="input-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="form-tip">Un titre précis attire des candidats plus qualifiés</div>
+                </div>
+                
+                <div class="form-group required fade-in delay-3">
+                    <label for="id_description">Description détaillée</label>
+                    <textarea name="description" id="id_description" placeholder="Décrivez les missions, technologies utilisées, compétences requises, et avantages de ce stage..." required>{{ form.description.value|default_if_none:'' }}</textarea>
+                    <div class="form-tip">Mentionnez les technologies, les projets sur lesquels le stagiaire travaillera et l'environnement de travail</div>
+                </div>
+                
+                <div class="form-row form-row-2">
+                    <div class="form-group required fade-in delay-4">
+                        <label for="id_lieu">Lieu du stage</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="lieu" id="id_lieu" placeholder="Ex: Paris (75), Télétravail partiel" value="{{ form.lieu.value|default_if_none:'' }}" required>
+                            <span class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group required fade-in delay-4">
+                        <label for="id_duree">Durée du stage</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="duree" id="id_duree" placeholder="Ex: 6 mois à partir de septembre 2025" value="{{ form.duree.value|default_if_none:'' }}" required>
+                            <span class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group required fade-in delay-5">
+                    <label for="id_date_limite">Date limite de candidature</label>
+                    <div class="input-wrapper">
+                        <input type="date" name="date_limite" id="id_date_limite" value="{{ form.date_limite.value|default_if_none:'' }}" required>
+                        <span class="input-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="btn-container fade-in delay-6">
+                    <a href="{% url 'tableau_de_bord_entreprise' %}" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Retour au tableau de bord
+                    </a>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Publier l'offre
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Enhanced form interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input, textarea');
+            
+            // Focus effect with subtle animation
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    const formGroup = this.closest('.form-group');
+                    formGroup.style.transform = 'translateX(5px)';
+                    formGroup.style.transition = 'all 0.3s ease';
+                    
+                    const label = formGroup.querySelector('label');
+                    if (label) {
+                        label.style.color = 'var(--primary)';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    const formGroup = this.closest('.form-group');
+                    formGroup.style.transform = 'translateX(0)';
+                    
+                    const label = formGroup.querySelector('label');
+                    if (label) {
+                        label.style.color = '';
+                    }
+                });
+            });
+            
+            // Staggered animation on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>
