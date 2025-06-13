@@ -23,7 +23,7 @@ from django.contrib.auth.views import LogoutView
 from etudiants.views import connexion_etudiant
 
 urlpatterns = [
-    path('', lambda request: redirect('etudiants:accueil_etudiant')),  # redirige vers l'accueil
+    path('', lambda request: redirect('dashboard_global')),
     path('admin/', admin.site.urls),
     path('etudiants/', include(('etudiants.urls', 'etudiants'), namespace='etudiants')),
     #path("accounts/login/", auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
