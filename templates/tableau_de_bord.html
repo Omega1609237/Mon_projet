@@ -6,164 +6,120 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
         .animated-gradient {
-            background: linear-gradient(-45deg, #4f46e5, #7e22ce, #2563eb, #4338ca);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-        @keyframes gradient {
-            0% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
-            100% { background-position: 0% 50% }
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         .glass-effect {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
         .card-hover {
             transition: all 0.3s ease;
         }
         .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        .nav-link-hover {
-            position: relative;
-        }
-        .nav-link-hover::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #4f46e5;
-            transition: width 0.3s ease;
-        }
-        .nav-link-hover:hover::after {
-            width: 100%;
-        }
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Background with animated gradient -->
-    <div class="fixed inset-0 animated-gradient -z-10 opacity-95"></div>
-    
-    <!-- Decorative elements -->
-    <div class="fixed inset-0 -z-10 overflow-hidden">
-        <div class="absolute top-0 right-0 w-2/3 h-2/3 bg-blue-500 rounded-full opacity-10 blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-        <div class="absolute bottom-0 left-0 w-2/3 h-2/3 bg-purple-500 rounded-full opacity-10 blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
-    </div>
-
+<body class="min-h-screen animated-gradient">
     <!-- Navbar -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50">
+    <nav class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        <span class="ml-2 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">StageLink</span>
+                        <div class="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-gray-800">StageLink</span>
                     </div>
-                    <div class="hidden md:ml-6 md:flex md:space-x-8">
-                        <a href="{% url 'dashboard_global' %}" class="border-indigo-500 text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Accueil
-                        </a>
-                        <a href="#" class="nav-link-hover border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 text-sm font-medium">
-                            À propos
-                        </a>
-                        <a href="#" class="nav-link-hover border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 text-sm font-medium">
-                            Témoignages
-                        </a>
-                        <a href="#" class="nav-link-hover border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 text-sm font-medium">
-                            Contact
-                        </a>
-                        <div class="relative inline-block text-left group ml-2">
-                            <button type="button" class="nav-link-hover inline-flex justify-center w-full rounded-md border border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:text-indigo-600 focus:outline-none">
-                                Ressources
-                                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                            <div class="hidden group-hover:block origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-                <div class="py-1" role="none">
-                    <a href="https://www.enseignementsup-recherche.gouv.fr/fr/guide-des-stages-etudiants-informations-pratiques-46518"
-                    class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
-                    role="menuitem" target="_blank" rel="noopener noreferrer">
-                    Guide des stages
-                    </a>
-                    <a href="https://fr.indeed.com/conseils-carrieres/entretiens/reussir-son-entretien-dembauche"
-                    class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
-                    role="menuitem" target="_blank" rel="noopener noreferrer">
-                    Conseils entretien
-                    </a>
-                    <a href="https://www.cv.fr"
-                    class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
-                    role="menuitem" target="_blank" rel="noopener noreferrer">
-                    Modèles de CV
-                    </a>
                 </div>
-            </div>
 
-                        </div>
-                    </div>
+                <!-- Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'dashboard_global' %}" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-4">Accueil</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-800">À propos</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-800">Témoignages</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-800">Contact</a>
+                    <div class="relative">
+    <button id="toggleRessources" class="text-gray-600 hover:text-gray-800 flex items-center">
+        Ressources
+        <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+
+    <div id="menuRessources" class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+        <div class="py-1" role="none">
+            <a href="https://www.enseignementsup-recherche.gouv.fr/fr/guide-des-stages-etudiants-informations-pratiques-46518"
+                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" target="_blank" rel="noopener noreferrer">
+                Guide des stages
+            </a>
+            <a href="https://fr.indeed.com/conseils-carrieres/entretiens/reussir-son-entretien-dembauche"
+                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" target="_blank" rel="noopener noreferrer">
+                Conseils entretien
+            </a>
+            <a href="https://www.cv.fr"
+                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" target="_blank" rel="noopener noreferrer">
+                Modèles de CV
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const toggleBtn = document.getElementById('toggleRessources');
+    const menu = document.getElementById('menuRessources');
+
+    toggleBtn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    // Cacher le menu si on clique en dehors
+    document.addEventListener('click', (event) => {
+        if (!toggleBtn.contains(event.target) && !menu.contains(event.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+</script>
+
+                <!-- Auth buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'connexion_etudiant' %}" class="flex items-center text-gray-600 hover:text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Étudiant
+                    </a>
+                    <a href="{% url 'connexion_entreprise' %}" class="flex items-center text-gray-600 hover:text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        Entreprise
+                    </a>
+                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                        </svg>
+                        S'inscrire
+                    </a>
                 </div>
-                <div class="hidden md:ml-6 md:flex md:items-center">
-                    <div class="ml-3 relative">
-                        <div class="flex space-x-4 items-center">
-                            <a href="{% url 'connexion_etudiant' %}" class="nav-link-hover text-gray-500 hover:text-indigo-600 px-3 py-2 text-sm font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                Étudiant
-                            </a>
-                            <a href="{% url 'connexion_entreprise' %}" class="nav-link-hover text-gray-500 hover:text-indigo-600 px-3 py-2 text-sm font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                </svg>
-                                Entreprise
-                            </a>
-                            <span class="h-5 w-px bg-gray-300"></span>
-                            <a href="#" class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white px-5 py-2 rounded-full text-sm font-medium hover:from-indigo-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-indigo-500/30 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                                </svg>
-                                S'inscrire
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="-mr-2 flex items-center md:hidden">
-                    <!-- Mobile menu button -->
-                    <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
-                        <span class="sr-only">Ouvrir le menu</span>
-                        <!-- Icon when menu is closed -->
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="text-gray-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
@@ -171,158 +127,96 @@
         </div>
     </nav>
 
-    <!-- Contenu principal -->
-    <div class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
-        <div class="flex w-full max-w-6xl bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-            <!-- Section principale (précédemment la gauche) -->
-            <div class="w-full p-8 lg:p-12">
-                <div class="flex flex-col md:flex-row justify-between">
-                    <!-- Partie texte -->
-                    <div class="w-full md:w-1/2 md:pr-8">
+    <!-- Main Content -->
+    <div class="flex-1 flex items-center justify-center px-4 py-12">
+        <div class="max-w-6xl w-full">
+            <div class="glass-effect rounded-2xl p-8 lg:p-12 shadow-xl">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- Left side - Content -->
+                    <div>
+                        <!-- Logo and title -->
                         <div class="flex items-center mb-8">
-                            <div class="h-12 w-12 flex items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg">
+                            <div class="h-12 w-12 bg-blue-600 rounded-xl flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
                             </div>
-                            <h1 class="ml-3 text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">StageLink</h1>
+                            <h1 class="ml-3 text-2xl font-bold text-gray-800">StageLink</h1>
                         </div>
-                        
-                        <div class="mb-10">
-                            <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Votre <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">passerelle</span> vers l'avenir professionnel</h2>
-                            <p class="text-gray-600 mb-6 text-lg">Connectez-vous à l'espace qui correspond à votre profil pour accéder à toutes les fonctionnalités de StageLink.</p>
-                                                        
-                            <div class="flex flex-wrap -mx-2 mb-6">
-                                <div class="w-full md:w-1/3 px-2 mb-4">
-                                    <div class="glass-effect text-center p-4 rounded-lg text-white h-full">
-                                        <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 mb-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                            </svg>
-                                        </div>
-                                        <p class="font-semibold text-lg">+1000</p>
-                                        <p class="text-white/80 text-sm">étudiants</p>
-                                    </div>
+
+                        <!-- Main heading -->
+                        <h2 class="text-4xl font-bold text-gray-800 mb-4 leading-tight">
+                            Votre <span class="text-blue-600">passerelle</span> vers l'avenir professionnel
+                        </h2>
+
+                        <!-- Description -->
+                        <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                            Connectez-vous à l'espace qui correspond à votre profil pour accéder à toutes les fonctionnalités de StageLink.
+                        </p>
+
+                        <!-- Action buttons -->
+                        <div class="space-y-4">
+                            <a href="{% url 'connexion_etudiant' %}" class="w-full lg:w-auto flex items-center justify-center lg:justify-start bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 card-hover">
+                                <div class="bg-white/20 p-2 rounded-lg mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                    </svg>
                                 </div>
-                                <div class="w-full md:w-1/3 px-2 mb-4">
-                                    <div class="glass-effect text-center p-4 rounded-lg text-white h-full">
-                                        <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-purple-500 mb-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                            </svg>
-                                        </div>
-                                        <p class="font-semibold text-lg">+300</p>
-                                        <p class="text-white/80 text-sm">entreprises</p>
-                                    </div>
+                                <div class="text-left">
+                                    <div class="font-semibold">Espace Étudiant</div>
+                                    <div class="text-blue-100 text-sm">Trouvez le stage qui lancera votre carrière</div>
                                 </div>
-                                <div class="w-full md:w-1/3 px-2 mb-4">
-                                    <div class="glass-effect text-center p-4 rounded-lg text-white h-full">
-                                        <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-500 mb-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
-                                        </div>
-                                        <p class="font-semibold text-lg">+500</p>
-                                        <p class="text-white/80 text-sm">stages</p>
-                                    </div>
+                            </a>
+
+                            <a href="{% url 'connexion_entreprise' %}" class="w-full lg:w-auto flex items-center justify-center lg:justify-start bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 card-hover">
+                                <div class="bg-white/20 p-2 rounded-lg mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
                                 </div>
-                            </div>
-                            
-                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Construisez votre avenir professionnel</h3>
-                            <p class="text-gray-600 mb-6">StageLink connecte les étudiants ambitieux aux entreprises innovantes pour des expériences professionnelles enrichissantes.</p>
+                                <div class="text-left">
+                                    <div class="font-semibold">Espace Entreprise</div>
+                                    <div class="text-green-100 text-sm">Recrutez les talents de demain</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Link to services -->
+                        <div class="mt-6">
+                            <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                                <span>Découvrir nos services</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Partie connexion -->
-                    <div class="w-full md:w-1/2 md:pl-8 flex items-center justify-center">
-                        <div class="relative w-full max-w-md">
-                            <!-- Effets visuels en arrière-plan -->
-                            <div class="absolute -top-5 -right-5 h-64 w-64 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-                            <div class="absolute -bottom-5 -left-5 h-64 w-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-                            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl opacity-80"></div>
-                            
-                            <div class="relative bg-white p-8 rounded-xl shadow-lg">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Accédez à votre espace</h3>
-                                <div class="flex flex-col gap-6">
-                                    <a href="{% url 'connexion_etudiant' %}" class="flex items-center card-hover bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-400/30">
-                                        <div class="bg-white/20 p-3 rounded-full mr-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                                            </svg>
-                                        </div>
-                                        <div class="text-left">
-                                            <span class="text-lg font-semibold block">Espace Étudiant</span>
-                                            <p class="text-gray-100 text-sm">Trouvez le stage qui lancera votre carrière</p>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="{% url 'connexion_entreprise' %}" class="flex items-center card-hover bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-green-400/30">
-                                        <div class="bg-white/20 p-3 rounded-full mr-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                            </svg>
-                                        </div>
-                                        <div class="text-left">
-                                            <span class="text-lg font-semibold block">Espace Entreprise</span>
-                                            <p class="text-gray-100 text-sm">Recrutez les talents de demain</p>
-                                        </div>
-                                    </a>
-                                    
-                                    <div class="text-center">
-                                        <a href="#" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 transition-colors">
-                                            <span>Découvrir nos services</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                            </svg>
-                                        </a>
-                                    </div>
+                    <!-- Right side - Image placeholder -->
+                    <div class="hidden lg:block">
+                        <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl h-96 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4">🎓</div>
+                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Étudiants et professionnels</h3>
+                                <div class="bg-white/80 rounded-xl p-6 max-w-sm">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Construisez votre avenir professionnel</h4>
+                                    <p class="text-gray-600 text-sm">StageLink connecte les étudiants ambitieux aux entreprises innovantes pour des expériences professionnelles enrichissantes.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Section avantages -->
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="p-6 rounded-xl bg-gradient-to-br from-indigo-50 to-white shadow-md card-hover border border-indigo-100">
-                        <div class="h-12 w-12 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Mise en relation ciblée</h3>
-                        <p class="text-gray-600">Nous connectons les étudiants aux entreprises selon leurs compétences et aspirations professionnelles.</p>
-                    </div>
-                    
-                    <div class="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-white shadow-md card-hover border border-purple-100">
-                        <div class="h-12 w-12 flex items-center justify-center rounded-full bg-purple-100 text-purple-600 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Conseils personnalisés</h3>
-                        <p class="text-gray-600">Accédez à des ressources et conseils exclusifs pour optimiser votre recherche de stage ou de talents.</p>
-                    </div>
-                    
-                    <div class="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-white shadow-md card-hover border border-blue-100">
-                        <div class="h-12 w-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Suivi continu</h3>
-                        <p class="text-gray-600">Notre plateforme assure un accompagnement tout au long du processus de recrutement et du stage.</p>
-                    </div>
-                </div>
-                
-                <div class="text-center text-sm text-gray-500 mt-12">
-                    <p>&copy; 2025 StageLink - Tous droits réservés</p>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Footer -->
-    <footer class="bg-gray-900
+    <footer class="bg-white/10 backdrop-blur-md py-4">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-white/80 text-sm">&copy; 2025 StageLink - Tous droits réservés</p>
+        </div>
+    </footer>
+</body>
+</html>
