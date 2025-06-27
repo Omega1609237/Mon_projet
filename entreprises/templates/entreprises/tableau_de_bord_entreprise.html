@@ -59,7 +59,7 @@
         </div>
         <div class="text-right hidden md:block">
             <p class="text-sm text-gray-500">Dernière connexion:</p>
-            <p class="text-sm font-semibold text-gray-700">{{ today|date:"d/m/Y" }}</p>
+            <p class="text-sm font-semibold text-gray-700">{{ user.last_login|date:"d/m/Y à H:i" }}</p>
         </div>
     </div>
 
