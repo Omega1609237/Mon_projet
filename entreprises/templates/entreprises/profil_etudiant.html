@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Étudiant | {{ etudiant.user.get_full_name|default:etudiant.nom }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 md:p-8">
+            <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                <div class="flex-shrink-0">
+                    {% if etudiant.photo %}
+                        <img src="{{ etudiant.photo.url }}" alt="Photo de profil" class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-blue-100 shadow">
+                    {% else %}
+                        <div class="w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center border-4 border-blue-100 shadow">
+                            <i class="fas fa-user-graduate text-5xl text-blue-300"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="flex-1 space-y-6">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">
+                            {% if etudiant.user.get_full_name %}
+                                {{ etudiant.user.get_full_name }}
+                            {% else %}
+                                {{ etudiant.prenom }} {{ etudiant.nom }}
+                            {% endif %}
+                        </h1>
+                        
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-envelope mr-3 text-blue-500 w-5"></i>
+                                {% if etudiant.user.email %}
+                                    <a href="mailto:{{ etudiant.user.email }}" class="hover:underline">{{ etudiant.user.email }}</a>
+                                {% else %}
+                                    <span class="text-gray-400">Email non renseigné</span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-phone-alt mr-3 text-blue-500 w-5"></i>
+                                {% if etudiant.telephone %}
+                                    <a href="tel:{{ etudiant.telephone }}" class="hover:underline">{{ etudiant.telephone }}</a>
+                                {% else %}
+                                    <span class="text-gray-400">Téléphone non renseigné</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h2 class="text-xl font-semibold text-gray-700 mb-3 flex items-center">
+                                <i class="fas fa-id-card mr-2 text-blue-500"></i>
+                                Informations personnelles
+                            </h2>
+                            <div class="space-y-2">
+                                <p><span class="font-medium">Prénom:</span> {{ etudiant.prenom|default:"Non renseigné" }}</p>
+                                <p><span class="font-medium">Nom:</span> {{ etudiant.nom|default:"Non renseigné" }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h2 class="text-xl font-semibold text-gray-700 mb-3 flex items-center">
+                                <i class="fas fa-star mr-2 text-blue-500"></i>
+                                Compétences
+                            </h2>
+                            <div class="flex flex-wrap gap-2">
+                                {% if etudiant.competences %}
+                                    {% for competence in etudiant.competences|slice:":5" %}
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
+                                            {{ competence }}
+                                        </span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span class="text-gray-400">Aucune compétence renseignée</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4 mt-6">
+                        {% if etudiant.cv %}
+                            <a href="{{ etudiant.cv.url }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-200 shadow hover:shadow-md">
+                                <i class="fas fa-download mr-2"></i>
+                                Télécharger le CV
+                            </a>
+                        {% else %}
+                            <div class="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-500 rounded-lg">
+                                <i class="fas fa-file-alt mr-2"></i>
+                                Aucun CV disponible
+                            </div>
+                        {% endif %}
+                        
+                        <a href="tel:{{ etudiant.telephone }}" class="inline-flex items-center px-6 py-3 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition duration-200">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            Contacter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
