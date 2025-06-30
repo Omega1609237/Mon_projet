@@ -14,5 +14,8 @@ urlpatterns = [
     path('offre/<int:offre_id>/supprimer/', views.supprimer_offre, name='supprimer_offre'),
     path('modifier-profil/', views.modifier_profil_entreprise, name='modifier_profil_entreprise'),
     path('profil/', views.voir_profil_entreprise, name='profil_entreprise'),
+    path('etudiants/', views.liste_etudiants, name='liste_etudiants'),
+    path('etudiants/<int:etudiant_id>/', views.profil_etudiant, name='profil_etudiant'),
+
 
 ]
