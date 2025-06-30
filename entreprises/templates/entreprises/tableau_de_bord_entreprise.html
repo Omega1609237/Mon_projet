@@ -60,6 +60,9 @@
         <div class="text-right hidden md:block">
             <p class="text-sm text-black-500">Dernière connexion:</p>
             <p class="text-sm font-semibold text-gray-700">{{ user.last_login|date:"d/m/Y à H:i" }}</p>
+            <a href="{% url 'liste_etudiants' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow">
+    Voir les profils étudiants
+</a>
         </div>
     </div>
 
