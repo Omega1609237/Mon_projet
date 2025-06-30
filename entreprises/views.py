@@ -183,3 +183,20 @@ from .models import Entreprise
 def voir_profil_entreprise(request):
     entreprise = get_object_or_404(Entreprise, user=request.user)
     return render(request, 'entreprises/voir_profil_entreprise.html', {'entreprise': entreprise})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from etudiants.models import Etudiant
+
+@login_required
+def liste_etudiants(request):
+    etudiants = Etudiant.objects.all()
+    return render(request, 'entreprises/liste_etudiants.html', {'etudiants': etudiants})
+
+# entreprises/views.py
+from django.shortcuts import get_object_or_404
+
+@login_required
+def profil_etudiant(request, etudiant_id):
+    etudiant = get_object_or_404(Etudiant, id=etudiant_id)
+    return render(request, 'entreprises/profil_etudiant.html', {'etudiant': etudiant})
